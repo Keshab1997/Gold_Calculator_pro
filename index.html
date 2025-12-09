@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Calculator App</title>
+    
+    <!-- পরিবর্তন: style.css এর বদলে login.css দেওয়া হলো -->
+    <link rel="stylesheet" href="css/login.css">
+    <!-- যদি গ্লোবাল ডিজাইন দরকার হয় তবে নিচের লাইনটিও ব্যবহার করতে পারেন -->
+    <!-- <link rel="stylesheet" href="css/global.css"> -->
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Login / Signup</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="handleLogin()">Login</button>
+        <button onclick="handleSignUp()">Sign Up</button>
+        <p id="message"></p>
+    </div>
+
+    <!-- Scripts Order is Important -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
