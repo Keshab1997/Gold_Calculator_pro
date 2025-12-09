@@ -4,60 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gold Shop Dashboard</title>
+    
+    <!-- CSS কানেকশন -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- আইকনের জন্য Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- ১. হেডার সেকশন -->
     <header class="app-header">
         <div class="logo">
-            <i class="fa-solid fa-gem"></i> Gold Calculator
+            <i class="fa-solid fa-gem"></i> Gold Calculator Pro
         </div>
-        <button onclick="handleLogout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        <button onclick="handleLogout()" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
     </header>
 
     <div class="container">
-        <!-- Calculator Card -->
+        
+        <!-- ২. ক্যালকুলেটর কার্ড -->
         <div class="card calculation-card">
             <div class="card-header">
                 <h3><i class="fa-solid fa-calculator"></i> New Calculation</h3>
             </div>
             
-            <form id="calcForm" onsubmit="calculateTotal(event)">
+            <form id="calcForm" onsubmit="calculateTotal(event)" autocomplete="off">
                 <div class="form-grid">
+                    <!-- আইটেম নাম -->
                     <div class="input-group">
                         <label>Item Name</label>
                         <input type="text" id="item" placeholder="e.g. Necklace / Bala" required>
                     </div>
                     
+                    <!-- ওজন (৩ দশমিক পর্যন্ত সাপোর্ট করবে) -->
                     <div class="input-group">
-                        <label>Weight (gm) <small>(3 decimal supported)</small></label>
-                        <input type="number" id="weight" step="0.001" placeholder="10.023" required oninput="liveCalculate()">
+                        <label>Weight (gm) <small>(e.g. 10.023)</small></label>
+                        <input type="number" id="weight" step="0.001" min="0" placeholder="0.000" inputmode="decimal" required oninput="liveCalculate()">
                     </div>
 
+                    <!-- আজকের রেট -->
                     <div class="input-group">
                         <label>Gold Rate (Today)</label>
-                        <input type="number" id="rate" placeholder="Current Rate" required oninput="liveCalculate()">
+                        <input type="number" id="rate" min="0" placeholder="Current Rate" inputmode="numeric" required oninput="liveCalculate()">
                     </div>
 
+                    <!-- মেকিং চার্জ -->
                     <div class="input-group">
                         <label>Making Charge (Total)</label>
-                        <input type="number" id="making" placeholder="Making Cost" required oninput="liveCalculate()">
+                        <input type="number" id="making" min="0" placeholder="Making Cost" inputmode="numeric" required oninput="liveCalculate()">
                     </div>
 
-                    <!-- Loss Percentage (Optional Input to calculate loss cost) -->
+                    <!-- লস বা খাদ (শতাংশ) -->
                     <div class="input-group">
                         <label>Loss / Wastage (%)</label>
-                        <input type="number" id="lossPercent" value="10" step="0.1" oninput="liveCalculate()">
+                        <input type="number" id="lossPercent" value="10" step="0.1" min="0" oninput="liveCalculate()">
                     </div>
                 </div>
 
-                <!-- Result Display -->
+                <!-- রেজাল্ট বা ফলাফল -->
                 <div class="result-box">
                     <div class="result-row">
                         <span>Gold Value:</span>
@@ -78,15 +86,20 @@
                     </div>
                 </div>
 
-                <button type="submit" class="save-btn"><i class="fa-solid fa-save"></i> Calculate & Save</button>
+                <!-- সেভ বাটন -->
+                <button type="submit" class="save-btn">
+                    <i class="fa-solid fa-save"></i> Calculate & Save
+                </button>
             </form>
         </div>
 
-        <!-- History Table Section -->
+        <!-- ৩. হিস্ট্রি টেবিল (আগের হিসাব) -->
         <div class="card history-card">
             <div class="card-header">
-                <h3><i class="fa-solid fa-list-check"></i> Recent Calculations</h3>
-                <button onclick="loadData()" class="refresh-btn"><i class="fa-solid fa-rotate-right"></i></button>
+                <h3><i class="fa-solid fa-list-check"></i> Recent History</h3>
+                <button onclick="loadData()" class="refresh-btn" title="Refresh Data">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
             </div>
             <div class="table-responsive">
                 <table class="data-table">
@@ -100,7 +113,7 @@
                     </thead>
                     <tbody id="historyTableBody">
                         <tr>
-                            <td colspan="4" style="text-align:center;">Loading data...</td>
+                            <td colspan="4" style="text-align:center; padding: 20px; color: #666;">Loading data...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -108,26 +121,25 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ৪. ফুটার -->
     <footer class="app-footer">
         <p>Developed with <i class="fa-solid fa-heart" style="color: red;"></i> by <strong>Keshab Sarkar</strong></p>
         <p>&copy; 2024 Gold Shop Management System</p>
     </footer>
 
-    <!-- Scripts -->
-        <!-- Scripts -->
-    <!-- ১. config.js লাইনটি মুছে ফেলা হয়েছে কারণ এটি এরর দিচ্ছে -->
+    <!-- ৫. স্ক্রিপ্ট ফাইল (অর্ডার খুবই গুরুত্বপূর্ণ) -->
     
-    <!-- ২. প্রথমে Supabase CDN -->
+    <!-- A. প্রথমে Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- ৩. তারপর ক্লায়েন্ট সেটআপ -->
+    <!-- B. তারপর আপনার ক্লায়েন্ট কনফিগারেশন -->
     <script src="js/supabase-client.js"></script>
 
-    <!-- ৪. তারপর লজিক ফাইলগুলো -->
-    <script src="js/calculator.js"></script>
+    <!-- C. অথেন্টিকেশন চেক -->
     <script src="js/auth.js"></script>
-</body>
-</html>
+
+    <!-- D. ক্যালকুলেটর লজিক -->
+    <script src="js/calculator.js"></script>
+
 </body>
 </html>

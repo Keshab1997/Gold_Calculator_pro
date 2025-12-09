@@ -1,6 +1,144 @@
-.login-container {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    height: 100vh; background: #fff;
+/* ১. সাধারণ রিসেট (ড্যাশবোর্ডের সাথে মিল রেখে) */
+body {
+    background-color: #f4f6f9; /* ড্যাশবোর্ডের ব্যাকগ্রাউন্ড */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    height: 100vh; /* পুরো স্ক্রিন জুড়ে থাকবে */
+    display: flex;
+    justify-content: center; /* মাঝখানে আনবে */
+    align-items: center;     /* লম্বালম্বিভাবে মাঝখানে */
 }
-input { padding: 15px; margin: 10px 0; width: 80%; border: 1px solid #ccc; border-radius: 5px; }
-.btn-login { padding: 15px; width: 85%; background: #007bff; color: white; border-radius: 5px; font-size: 16px; }
+
+/* ২. লগিন কার্ড (ড্যাশবোর্ড কার্ড স্টাইল ফলো করা হয়েছে) */
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 380px; /* কার্ডের সাইজ */
+    padding: 40px 30px;
+    border-radius: 12px; /* ড্যাশবোর্ডের মতো রাউন্ডেড কর্নার */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* হালকা ছায়া */
+    text-align: center;
+}
+
+/* ৩. হেডার সেকশন */
+.auth-header {
+    margin-bottom: 30px;
+}
+
+.auth-header i {
+    font-size: 50px;
+    /* ড্যাশবোর্ডের হেডারের মতো গ্র্যাডিয়েন্ট এফেক্ট আইকনে */
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.auth-header h2 {
+    color: #1e3c72; /* ডার্ক ব্লু */
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ৪. ইনপুট ফিল্ড (ড্যাশবোর্ডের .input-group স্টাইল) */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box; /* প্যাডিং যাতে উইডথ না বাড়ায় */
+}
+
+.input-group input:focus {
+    border-color: #2a5298; /* ফোকাস কালার */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+}
+
+/* ৫. বাটন ডিজাইন */
+/* প্রাইমারি বাটন (লগিন) - ড্যাশবোর্ড হেডার কালার */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    margin-bottom: 12px;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* আউটলাইন বাটন (সাইন আপ) */
+.btn-outline {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid #2a5298; /* ড্যাশবোর্ডের প্রাইমারি ব্লু */
+    color: #2a5298;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-outline:hover {
+    background: #f0f4ff;
+    color: #1e3c72;
+}
+
+/* ৬. মেসেজ বক্স (এরর বা সাকসেস দেখানোর জন্য) */
+.message-box {
+    margin-bottom: 15px;
+    font-size: 14px;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+/* ড্যাশবোর্ডের কালার অনুযায়ী মেসেজ */
+.message-box[style*="red"] {
+    color: #ff6b6b !important; /* ড্যাশবোর্ডের লস কালার */
+}
+
+.message-box[style*="green"] {
+    color: #28a745 !important; /* ড্যাশবোর্ডের সেভ বাটন কালার */
+}
+
+/* রেসপন্সিভ (মোবাইলের জন্য) */
+@media (max-width: 480px) {
+    .auth-card {
+        box-shadow: none; /* মোবাইলে শ্যাডো বাদ */
+        background: transparent; /* মোবাইলে ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট */
+    }
+    
+    body {
+        background-color: #fff; /* মোবাইলে পুরো বডি সাদা */
+        align-items: flex-start; /* উপরের দিকে থাকবে */
+        padding-top: 40px;
+    }
+
+    .input-group input {
+        background: #f4f6f9; /* ইনপুট ফিল্ড একটু হাইলাইট হবে */
+    }
+}
