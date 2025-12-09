@@ -1,29 +1,29 @@
 const CACHE_NAME = 'gold-calc-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/dashboard.html',
-  '/css/global.css',
-  '/css/login.css',
-  '/css/dashboard.css',
-  '/js/app.js',
-  '/js/calculator.js'
+const urlsToCache = [
+  './',
+  './index.html',
+  './dashboard.html',
+  './css/global.css',
+  './css/login.css',
+  './css/dashboard.css',
+  './js/auth.js',
+  './js/calculator.js',
+  './js/supabase-client.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
-// Install Event
-self.addEventListener('install', (evt) => {
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
+// Install Service Worker
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
 });
 
-// Fetch Event (অফলাইনেও যাতে পেজ লোড হয়)
-self.addEventListener('fetch', (evt) => {
-  evt.respondWith(
-    caches.match(evt.request).then((cacheRes) => {
-      return cacheRes || fetch(evt.request);
-    })
+// Fetch Data (Offline Support)
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
