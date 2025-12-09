@@ -115,9 +115,19 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/config.js"></script>
+        <!-- Scripts -->
+    <!-- ১. config.js লাইনটি মুছে ফেলা হয়েছে কারণ এটি এরর দিচ্ছে -->
+    
+    <!-- ২. প্রথমে Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- ৩. তারপর ক্লায়েন্ট সেটআপ -->
     <script src="js/supabase-client.js"></script>
+
+    <!-- ৪. তারপর লজিক ফাইলগুলো -->
     <script src="js/calculator.js"></script>
     <script src="js/auth.js"></script>
+</body>
+</html>
 </body>
 </html>
