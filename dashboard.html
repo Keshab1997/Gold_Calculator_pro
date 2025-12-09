@@ -33,6 +33,9 @@
             </div>
             
             <form id="calcForm" onsubmit="calculateTotal(event)" autocomplete="off">
+                <!-- এডিটের জন্য গোপন আইডি (খুবই গুরুত্বপূর্ণ) -->
+                <input type="hidden" id="editId">
+
                 <div class="form-grid">
                     <!-- আইটেম নাম -->
                     <div class="input-group">
@@ -40,7 +43,7 @@
                         <input type="text" id="item" placeholder="e.g. Necklace / Bala" required>
                     </div>
                     
-                    <!-- ওজন (৩ দশমিক পর্যন্ত সাপোর্ট করবে) -->
+                    <!-- ওজন -->
                     <div class="input-group">
                         <label>Weight (gm) <small>(e.g. 10.023)</small></label>
                         <input type="number" id="weight" step="0.001" min="0" placeholder="0.000" inputmode="decimal" required oninput="liveCalculate()">
@@ -52,13 +55,13 @@
                         <input type="number" id="rate" min="0" placeholder="Current Rate" inputmode="numeric" required oninput="liveCalculate()">
                     </div>
 
-                    <!-- মেকিং চার্জ -->
+                    <!-- মেকিং চার্জ (আপডেট করা লেবেল) -->
                     <div class="input-group">
-                        <label>Making Charge (Total)</label>
-                        <input type="number" id="making" min="0" placeholder="Making Cost" inputmode="numeric" required oninput="liveCalculate()">
+                        <label>Making Charge (Per Gram)</label>
+                        <input type="number" id="making" min="0" placeholder="Rate per gm" inputmode="numeric" required oninput="liveCalculate()">
                     </div>
 
-                    <!-- লস বা খাদ (শতাংশ) -->
+                    <!-- লস বা খাদ -->
                     <div class="input-group">
                         <label>Loss / Wastage (%)</label>
                         <input type="number" id="lossPercent" value="10" step="0.1" min="0" oninput="liveCalculate()">
@@ -76,7 +79,7 @@
                         <span id="lossCost">0.00</span>
                     </div>
                     <div class="result-row">
-                        <span>Making Charge:</span>
+                        <span>Making Charge (Total):</span>
                         <span id="makingCost">0.00</span>
                     </div>
                     <div class="divider"></div>
@@ -93,13 +96,22 @@
             </form>
         </div>
 
-        <!-- ৩. হিস্ট্রি টেবিল (আগের হিসাব) -->
+        <!-- ৩. হিস্ট্রি টেবিল (আপডেট করা) -->
         <div class="card history-card">
             <div class="card-header">
                 <h3><i class="fa-solid fa-list-check"></i> Recent History</h3>
-                <button onclick="loadData()" class="refresh-btn" title="Refresh Data">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </button>
+                
+                <!-- বাটন কন্টেইনার -->
+                <div>
+                    <!-- PDF বাটন -->
+                    <button onclick="downloadPDF()" class="refresh-btn" title="Download PDF" style="margin-right: 10px; color: #d63031;">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </button>
+                    <!-- রিফ্রেশ বাটন -->
+                    <button onclick="loadData()" class="refresh-btn" title="Refresh Data">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="data-table">
@@ -109,11 +121,12 @@
                             <th>Weight</th>
                             <th>Total Price</th>
                             <th>Date</th>
+                            <th>Actions</th> <!-- নতুন কলাম -->
                         </tr>
                     </thead>
                     <tbody id="historyTableBody">
                         <tr>
-                            <td colspan="4" style="text-align:center; padding: 20px; color: #666;">Loading data...</td>
+                            <td colspan="5" style="text-align:center; padding: 20px; color: #666;">Loading data...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,18 +140,22 @@
         <p>&copy; 2024 Gold Shop Management System</p>
     </footer>
 
-    <!-- ৫. স্ক্রিপ্ট ফাইল (অর্ডার খুবই গুরুত্বপূর্ণ) -->
+    <!-- ৫. স্ক্রিপ্ট ফাইল -->
     
-    <!-- A. প্রথমে Supabase CDN -->
+    <!-- A. PDF জেনারেশনের জন্য লাইব্রেরি (নতুন যোগ করা হয়েছে) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- B. Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- B. তারপর আপনার ক্লায়েন্ট কনফিগারেশন -->
+    <!-- C. ক্লায়েন্ট কনফিগারেশন -->
     <script src="js/supabase-client.js"></script>
 
-    <!-- C. অথেন্টিকেশন চেক -->
+    <!-- D. অথেন্টিকেশন চেক -->
     <script src="js/auth.js"></script>
 
-    <!-- D. ক্যালকুলেটর লজিক -->
+    <!-- E. ক্যালকুলেটর লজিক (আপডেট করা ফাইলটি ব্যবহার করবেন) -->
     <script src="js/calculator.js"></script>
 
 </body>
