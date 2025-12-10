@@ -237,7 +237,7 @@ async function deleteItem(id) {
     }
 }
 
-// ৮. PDF ডাউনলোড ফাংশন
+// ৮. PDF ডাউনলোড ফাংশন (আপডেট করা হয়েছে Expo অ্যাপের জন্য)
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
     
@@ -272,6 +272,21 @@ function downloadPDF() {
         }
     });
 
-    // ডাউনলোড করা
-    doc.save("gold_history.pdf");
+    // --- এখান থেকে অ্যাপ এবং ব্রাউজারের আলাদা লজিক শুরু ---
+
+    if (window.ReactNativeWebView) {
+        // ১. যদি এটা Expo অ্যাপের ভেতর চলে
+        // PDF ডাটাকে base64 স্ট্রিং-এ কনভার্ট করা হচ্ছে
+        const pdfData = doc.output('datauristring');
+        
+        // অ্যাপের কাছে মেসেজ পাঠানো হচ্ছে
+        window.ReactNativeWebView.postMessage(JSON.stringify({
+            type: 'downloadPDF',
+            data: pdfData, 
+            filename: 'gold_history.pdf'
+        }));
+    } else {
+        // ২. যদি এটা সাধারণ ব্রাউজারে (Chrome/Safari) চলে
+        doc.save("gold_history.pdf");
+    }
 }
