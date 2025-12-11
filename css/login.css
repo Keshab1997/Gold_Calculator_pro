@@ -1,92 +1,156 @@
-/* ১. সাধারণ রিসেট (ড্যাশবোর্ডের সাথে মিল রেখে) */
+/* Google Font ইম্পোর্ট (সুন্দর ফন্টের জন্য) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ১. মেইন বডি এবং ব্যাকগ্রাউন্ড */
 body {
-    background-color: #f4f6f9; /* ড্যাশবোর্ডের ব্যাকগ্রাউন্ড */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    height: 100vh; /* পুরো স্ক্রিন জুড়ে থাকবে */
+    height: 100vh;
+    font-family: 'Poppins', sans-serif; /* মডার্ন ফন্ট */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* প্রফেশনাল ব্লু গ্রেডিয়েন্ট */
     display: flex;
-    justify-content: center; /* মাঝখানে আনবে */
-    align-items: center;     /* লম্বালম্বিভাবে মাঝখানে */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* স্ক্রলবার বন্ধ */
 }
 
-/* ২. লগিন কার্ড (ড্যাশবোর্ড কার্ড স্টাইল ফলো করা হয়েছে) */
+/* ব্যাকগ্রাউন্ডে হালকা গোল্ডেন আভা (অপশনাল ডেকোরেশন) */
+body::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 215, 0, 0.15); /* হালকা গোল্ড */
+    border-radius: 50%;
+    top: -50px;
+    left: -50px;
+    filter: blur(80px);
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    bottom: 50px;
+    right: 50px;
+    filter: blur(60px);
+}
+
+/* ২. লগইন কার্ড ডিজাইন */
 .auth-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95); /* গ্লাস এফেক্ট */
     width: 100%;
-    max-width: 380px; /* কার্ডের সাইজ */
-    padding: 40px 30px;
-    border-radius: 12px; /* ড্যাশবোর্ডের মতো রাউন্ডেড কর্নার */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* হালকা ছায়া */
+    max-width: 360px;
+    padding: 40px 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* ডিপ শ্যাডো */
     text-align: center;
+    position: relative;
+    z-index: 10;
+    animation: slideUp 0.8s ease-out; /* এনিমেশন */
+}
+
+/* কার্ড আসার এনিমেশন */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ৩. হেডার সেকশন */
 .auth-header {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .auth-header i {
-    font-size: 50px;
-    /* ড্যাশবোর্ডের হেডারের মতো গ্র্যাডিয়েন্ট এফেক্ট আইকনে */
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-size: 48px;
+    /* গোল্ডেন কালার গ্রেডিয়েন্ট */
+    background: linear-gradient(to right, #DAA520, #FFD700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
+    filter: drop-shadow(0 2px 4px rgba(218, 165, 32, 0.3));
 }
 
 .auth-header h2 {
-    color: #1e3c72; /* ডার্ক ব্লু */
-    margin: 0;
+    color: #333;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
+    margin: 5px 0 0;
+    letter-spacing: 0.5px;
 }
 
-/* ৪. ইনপুট ফিল্ড (ড্যাশবোর্ডের .input-group স্টাইল) */
+/* ৪. ইনপুট ফিল্ড ডিজাইন */
 .input-group {
     margin-bottom: 20px;
-    text-align: left;
+    position: relative;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    background-color: #fff;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-sizing: border-box; /* প্যাডিং যাতে উইডথ না বাড়ায় */
+    padding: 14px 15px;
+    border: 2px solid #eef2f7;
+    background: #f8f9fa;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* ইনপুটে ক্লিক করলে স্টাইল */
 .input-group input:focus {
-    border-color: #2a5298; /* ফোকাস কালার */
+    border-color: #2a5298;
+    background: #fff;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+    box-shadow: 0 4px 12px rgba(42, 82, 152, 0.1);
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+    font-size: 14px;
 }
 
 /* ৫. বাটন ডিজাইন */
-/* প্রাইমারি বাটন (লগিন) - ড্যাশবোর্ড হেডার কালার */
+/* প্রাইমারি বাটন (লগিন) */
 .btn-primary {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: opacity 0.3s;
-    margin-bottom: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
 }
 
 .btn-primary:hover {
-    opacity: 0.9;
+    transform: translateY(-2px); /* মাউস নিলে একটু উপরে উঠবে */
+    box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-primary:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+    background: #bdc3c7;
+    cursor: wait;
+    transform: none;
+    box-shadow: none;
 }
 
 /* আউটলাইন বাটন (সাইন আপ) */
@@ -94,51 +158,49 @@ body {
     width: 100%;
     padding: 12px;
     background: transparent;
-    border: 2px solid #2a5298; /* ড্যাশবোর্ডের প্রাইমারি ব্লু */
-    color: #2a5298;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
+    border: 2px solid #e0e0e0;
+    color: #666;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-outline:hover {
-    background: #f0f4ff;
-    color: #1e3c72;
+    border-color: #2a5298;
+    color: #2a5298;
+    background: #f4f8ff;
 }
 
-/* ৬. মেসেজ বক্স (এরর বা সাকসেস দেখানোর জন্য) */
+/* ৬. মেসেজ বক্স */
 .message-box {
-    margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 13px;
     min-height: 20px;
+    margin-bottom: 15px;
     font-weight: 500;
+    text-align: left;
+    padding-left: 5px;
 }
 
-/* ড্যাশবোর্ডের কালার অনুযায়ী মেসেজ */
-.message-box[style*="red"] {
-    color: #ff6b6b !important; /* ড্যাশবোর্ডের লস কালার */
-}
-
-.message-box[style*="green"] {
-    color: #28a745 !important; /* ড্যাশবোর্ডের সেভ বাটন কালার */
-}
-
-/* রেসপন্সিভ (মোবাইলের জন্য) */
+/* ৭. রেসপন্সিভ ডিজাইন */
 @media (max-width: 480px) {
     .auth-card {
-        box-shadow: none; /* মোবাইলে শ্যাডো বাদ */
-        background: transparent; /* মোবাইলে ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট */
-    }
-    
-    body {
-        background-color: #fff; /* মোবাইলে পুরো বডি সাদা */
-        align-items: flex-start; /* উপরের দিকে থাকবে */
-        padding-top: 40px;
+        max-width: 90%;
+        padding: 30px 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
 
-    .input-group input {
-        background: #f4f6f9; /* ইনপুট ফিল্ড একটু হাইলাইট হবে */
+    body {
+        background: #f0f4f8; /* মোবাইলে হালকা ব্যাকগ্রাউন্ড */
+    }
+    
+    body::before, body::after {
+        display: none; /* মোবাইলে ব্লার ইফেক্ট বন্ধ */
+    }
+
+    .auth-header i {
+        font-size: 40px;
     }
 }
